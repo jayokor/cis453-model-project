@@ -1,0 +1,13 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+
+
+# Env
+.env
