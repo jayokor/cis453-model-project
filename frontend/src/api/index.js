@@ -80,6 +80,10 @@ export async function updateRestaurantOrderStatus(orderId, status) {
 }
 
 // admin
+export async function fetchAdminRestaurants() {
+  const res = await api.get(endpoints.adminRestaurants());
+  return res.data;
+}
 export async function createRestaurant(payload) {
   const res = await api.post(endpoints.adminRestaurants(), payload);
   return res.data;

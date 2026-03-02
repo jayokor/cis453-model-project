@@ -4,7 +4,7 @@ import Loading from "../../components/Loading";
 import ErrorState from "../../components/ErrorState";
 import { money } from "../../utils/format";
 import {
-  fetchRestaurants,
+  fetchAdminRestaurants,
   createRestaurant,
   createRestaurantOwner,
   listAdminOrders,
@@ -32,8 +32,8 @@ export default function AdminPage() {
   const [openOrderId, setOpenOrderId] = useState(null);
 
   const restaurantsQ = useQuery({
-    queryKey: ["restaurants"],
-    queryFn: fetchRestaurants,
+    queryKey: ["adminRestaurants"],
+    queryFn: fetchAdminRestaurants,
   });
 
   const restaurants = useMemo(
@@ -58,7 +58,7 @@ export default function AdminPage() {
     mutationFn: createRestaurant,
     onSuccess: () => {
       setMsg({ type: "success", text: "Created restaurant!" });
-      qc.invalidateQueries({ queryKey: ["restaurants"] });
+      qc.invalidateQueries({ queryKey: ["adminRestaurants"] });
       setTimeout(() => setMsg(null), 2500);
     },
     onError: (e) => setMsg({ type: "error", text: e?.response?.data?.error ?? e.message }),
@@ -78,7 +78,7 @@ export default function AdminPage() {
   const toggleEnabledM = useMutation({
     mutationFn: ({ id, enabled }) => setRestaurantEnabled(id, enabled),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["restaurants"] });
+      qc.invalidateQueries({ queryKey: ["adminRestaurants"] });
     },
     onError: (e) => setMsg({ type: "error", text: e?.response?.data?.error ?? e.message }),
   });
